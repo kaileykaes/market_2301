@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe Market do
   before(:each) do
     @market = Market.new("South Pearl Street Farmers Market")
-    @vendor1 = Vendor.new("Rocky Mountain Fresh")
-    @vendor2 = Vendor.new("Ba-Nom-a-Nom")
-    @vendor3 = Vendor.new("Palisade Peach Shack")
+    @rocky_mountain_fresh = Vendor.new("Rocky Mountain Fresh")
+    @ba_nom_a_nom = Vendor.new("Ba-Nom-a-Nom")
+    @palisade_peach_shack = Vendor.new("Palisade Peach Shack")
     @item1 = Item.new({
       name: 'Peach', 
       price: "$0.75"})
@@ -21,11 +21,11 @@ RSpec.describe Market do
       name: "Banana Nice Cream", 
       price: "$4.25"
       })
-    @vendor1.stock(@item1, 35)
-    @vendor1.stock(@item2, 7)
-    @vendor2.stock(@item4, 50)
-    @vendor2.stock(@item3, 25)
-    @vendor3.stock(@item1, 65)
+    @rocky_mountain_fresh.stock(@item1, 35)
+    @rocky_mountain_fresh.stock(@item2, 7)
+    @ba_nom_a_nom.stock(@item4, 50)
+    @ba_nom_a_nom.stock(@item3, 25)
+    @palisade_peach_shack.stock(@item1, 65)
   end
 
   it 'exists' do
@@ -38,45 +38,45 @@ RSpec.describe Market do
   end
 
   it 'can add vendors' do
-    @market.add_vendor(@vendor1)
-    @market.add_vendor(@vendor2)
-    @market.add_vendor(@vendor3)
-    expect(@market.vendors).to eq([@vendor1, @vendor2, @vendor3])
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
+    expect(@market.vendors).to eq([@rocky_mountain_fresh, @ba_nom_a_nom, @palisade_peach_shack])
   end
 
   it 'can return vendor names' do
-    @market.add_vendor(@vendor1)
-    @market.add_vendor(@vendor2)
-    @market.add_vendor(@vendor3)
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
     expect(@market.vendor_names).to eq(["Rocky Mountain Fresh", "Ba-Nom-a-Nom", "Palisade Peach Shack"])
   end
   
   it 'can find vendors that sell items' do
-    @market.add_vendor(@vendor1)
-    @market.add_vendor(@vendor2)
-    @market.add_vendor(@vendor3)
-    expect(@market.vendors_that_sell(@item1)).to eq([@vendor1, @vendor3])
-    expect(@market.vendors_that_sell(@item4)).to eq([@vendor2])
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
+    expect(@market.vendors_that_sell(@item1)).to eq([@rocky_mountain_fresh, @palisade_peach_shack])
+    expect(@market.vendors_that_sell(@item4)).to eq([@ba_nom_a_nom])
   end
   
   it 'can find vendors that sell items' do
-    @market.add_vendor(@vendor1)
-    @market.add_vendor(@vendor2)
-    @market.add_vendor(@vendor3)
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
     expect(@market.sorted_item_list).to be_a(Array)
     expect(@market.sorted_item_list).to eq(["Banana Nice Cream", "Peach", "Peach", "Peach-Raspberry Nice Cream", "Tomato"])
   end
 
   it 'can check total inventory' do
-    @market.add_vendor(@vendor1)
-    @market.add_vendor(@vendor2)
-    @market.add_vendor(@vendor3)
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
     expect(@market.total_inventory).to be_a(Hash)
     expect(@market.total_inventory).to eq({
-      @item1 => {total: 95, vendors: [@vendor1, @vendor3]},
-      @item2 => {total:7, vendors: [@vendor1]},
-      @item3 => {total: 25, vendors: [@vendor2]},
-      @item4 => {total: 50, vendors: [@vendor2]}
+      @item1 => {total: 95, vendors: ["Rocky Mountain Fresh", "Palisade Peach Shack"]},
+      @item2 => {total:7, vendors: ["Rocky Mountain Fresh"]},
+      @item3 => {total: 25, vendors: ["Ba-Nom-a-Nom"]},
+      @item4 => {total: 50, vendors: ["Ba-Nom-a-Nom"]}
       })
   end
 
