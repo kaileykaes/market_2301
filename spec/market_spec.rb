@@ -58,4 +58,14 @@ RSpec.describe Market do
     expect(@market.vendors_that_sell(@item1)).to eq([@vendor1, @vendor3])
     expect(@market.vendors_that_sell(@item4)).to eq([@vendor2])
   end
+  
+  it 'can find vendors that sell items' do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    expect(@market.sorted_item_list).to be_a(Array)
+    require 'pry'; binding.pry
+    expect(@market.sorted_item_list).to eq(["Banana Nice Cream", "Peach", "Peach", "Peach-Raspberry Nice Cream", "Tomato"])
+  end
+
 end
