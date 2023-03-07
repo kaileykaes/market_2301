@@ -39,6 +39,13 @@ RSpec.describe Vendor do
     expect(@vendor.inventory).to eq({@item1 => 55})
   end
 
+  it 'can stock items of differing types' do
+    @vendor.stock(@item1, 30)
+    @vendor.stock(@item1, 25)
+    @vendor.stock(@item2, 12)
+    expect(@vendor.inventory).to eq({@item1 => 55, @item2 => 12})
+  end
+
 
 
 
