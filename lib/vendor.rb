@@ -24,4 +24,16 @@ class Vendor
     end
   @inventory
   end
+
+  def potential_revenue
+    price_amount = {}
+    @inventory.each do |item, amount|
+      price_amount[item.price.delete('$').to_f] = amount
+    end
+    revenues = []
+    price_amount.map do |price, amount|
+      revenues << price * amount
+    end
+    revenues.sum
+  end
 end
