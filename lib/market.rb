@@ -28,4 +28,14 @@ class Market
     end
     sellers
   end
+
+  def sorted_item_list 
+    item_names = []
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, value|
+        item_names << item.name
+      end
+    end
+    item_names.sort
+  end
 end
