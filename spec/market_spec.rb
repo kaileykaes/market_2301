@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Market do
   before(:each) do
     @market = Market.new("South Pearl Street Farmers Market")
-    @vendor = Vendor.new("Rocky Mountain Fresh")
+    @vendor1 = Vendor.new("Rocky Mountain Fresh")
     @vendor2 = Vendor.new("Ba-Nom-a-Nom")
     @vendor3 = Vendor.new("Palisade Peach Shack")
     @item1 = Item.new({
@@ -21,11 +21,11 @@ RSpec.describe Market do
       name: "Banana Nice Cream", 
       price: "$4.25"
       })
-    @vendor1.stock(item1, 35)
-    @vendor1.stock(item2, 7)
-    @vendor2.stock(item4, 50)
-    @vendor2.stock(item3, 25)
-    @vendor3.stock(item1, 65)
+    @vendor1.stock(@item1, 35)
+    @vendor1.stock(@item2, 7)
+    @vendor2.stock(@item4, 50)
+    @vendor2.stock(@item3, 25)
+    @vendor3.stock(@item1, 65)
   end
 
   it 'exists' do
