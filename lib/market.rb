@@ -18,4 +18,14 @@ class Market
     end
     names
   end
+
+  def vendors_that_sell(item)
+    sellers = []
+    @vendors.map do |vendor|
+      if vendor.inventory.include?(item)
+        sellers << vendor
+      end
+    end
+    sellers
+  end
 end
