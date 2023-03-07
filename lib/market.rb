@@ -40,16 +40,13 @@ class Market
   end
 
   def total_inventory  
-    # vendors_that_sell(item)
     errythang = {}
-    # item_deets = {total: 0, vendors: []}
     @vendors.map do |vendor|
       vendor.inventory.each do |item, v|
         errythang[item] = {total: 0, vendors: []} unless errythang.has_key?(item)
         errythang[item][:total] += vendor.inventory[item]
         errythang[item][:vendors] << vendor.name unless errythang[item].has_key?(vendor) 
       end
-      # require 'pry'; binding.pry
     end
     errythang
   end
