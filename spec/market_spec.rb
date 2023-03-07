@@ -73,12 +73,18 @@ RSpec.describe Market do
     @market.add_vendor(@palisade_peach_shack)
     expect(@market.total_inventory).to be_a(Hash)
     expect(@market.total_inventory).to eq({
-      @item1 => {total: 95, vendors: ["Rocky Mountain Fresh", "Palisade Peach Shack"]},
+      @item1 => {total: 100, vendors: ["Rocky Mountain Fresh", "Palisade Peach Shack"]},
       @item2 => {total:7, vendors: ["Rocky Mountain Fresh"]},
       @item3 => {total: 25, vendors: ["Ba-Nom-a-Nom"]},
       @item4 => {total: 50, vendors: ["Ba-Nom-a-Nom"]}
       })
+  end 
+
+  it 'find overstocked items' do
+    @market.add_vendor(@rocky_mountain_fresh)
+    @market.add_vendor(@ba_nom_a_nom)
+    @market.add_vendor(@palisade_peach_shack)
+    @market.total_inventory
+    expect(@market.overstocked_items).to eq([@item1])
   end
-
-
 end
