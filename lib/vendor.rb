@@ -1,6 +1,6 @@
 class Vendor
-  attr_reader :name, 
-              :inventory
+  attr_reader :name
+  attr_accessor :inventory
   
   def initialize(name)
     @name = name
@@ -15,4 +15,9 @@ class Vendor
       end
   end 
 
+  def stock(item, num)
+    @inventory[item] = 0
+    @inventory[item] += num
+  end
+  @inventory
 end
