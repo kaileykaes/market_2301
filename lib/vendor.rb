@@ -16,8 +16,12 @@ class Vendor
   end 
 
   def stock(item, num)
-    @inventory[item] = 0
-    @inventory[item] += num
-  end
+    if @inventory.has_key?(item)
+      @inventory[item] += num
+    else 
+      @inventory[item] = 0
+      @inventory[item] += num
+    end
   @inventory
+  end
 end
